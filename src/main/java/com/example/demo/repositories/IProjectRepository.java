@@ -8,6 +8,5 @@ import com.example.demo.domain.Project;
 @Repository
 public interface IProjectRepository extends CrudRepository<Project, Long> {
 
-	@Override
-	Iterable<Project> findAllById(Iterable<Long> iterable);
+	Project findByProjectIdentifier(String projectIdentifier);
 }
