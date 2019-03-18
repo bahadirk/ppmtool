@@ -1,8 +1,11 @@
 package com.example.demo.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +23,12 @@ public class ProjectController {
 	private ProjectService projectService;
 
 	@PostMapping("")
-	public ResponseEntity<Project> createNewProject(@RequestBody Project project) {
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return new ResponseEntity<String>("Invalid Project Object", HttpStatus.BAD_REQUEST);
+		}
+
 		Project updateProject = projectService.saveOrUpdatePoject(project);
 		return new ResponseEntity<Project>(updateProject, HttpStatus.CREATED);
 	}
