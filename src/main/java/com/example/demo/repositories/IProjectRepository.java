@@ -9,4 +9,7 @@ import com.example.demo.domain.Project;
 public interface IProjectRepository extends CrudRepository<Project, Long> {
 
 	Project findByProjectIdentifier(String projectIdentifier);
+
+	@Override
+	Iterable<Project> findAll();
 }
